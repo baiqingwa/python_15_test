@@ -4,6 +4,9 @@
 # Email：       364164232@qq.com
 # Time:         2019/4/26 0026
 
+import sys
+sys.path.append('./')
+print(sys.path)
 import unittest
 from week_10_API_learn.common.contents_ml import reports_file,case_dir
 import HTMLTestRunnerNew
