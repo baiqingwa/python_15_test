@@ -1,0 +1,1825 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>py_15测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 120%; }
+table       { font-size: 100%; }
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">py_15测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> baiqing</p>
+<p class='attribute'><strong>开始时间 : </strong> 2019-04-26 23:06:09</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:00:13.512285</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 62，通过 44，失败 15，错误 3，通过率= 70.97%</p>
+
+<p class='description'>关于全程贷的测试报告</p>
+</div>
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 70.97% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 15 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 44 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 62 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 16px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_add_loan.AddTest</td>
+    <td class="text-center">9</td>
+    <td class="text-center">8</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',9)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_1</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in" align="left">
+    <pre>
+    
+pt1_1: {'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in" align="left">
+    <pre>
+    
+pt1_2: {'status': 1, 'code': '10001', 'data': None, 'msg': '加标成功'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_3</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in" align="left">
+    <pre>
+    
+pt1_3: {'status': 0, 'code': '20103', 'data': None, 'msg': '所有参数不能为空'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_4</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in" align="left">
+    <pre>
+    
+pt1_4: {'status': 0, 'code': '20104', 'data': None, 'msg': '参数错误：用户ID memberId必须是正整数'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_5</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse in" align="left">
+    <pre>
+    
+pt1_5: {'status': 0, 'code': '20105', 'data': None, 'msg': '不存在该会员'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse in" align="left">
+    <pre>
+    
+pt1_6: {'status': 0, 'code': '20106', 'data': None, 'msg': '参数错误：借款金额amount必须为大于1000并能被100整除的正整数'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_7</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse in" align="left">
+    <pre>
+    
+pt1_7: {'status': 0, 'code': '20107', 'data': None, 'msg': '参数错误：借款利率loanRate值必须大于0小于或等于24'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_8</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse in" align="left">
+    <pre>
+    
+pt1_8: {'status': 0, 'code': '20108', 'data': None, 'msg': '参数错误：借款日期类型loanDateType只能为0,2,4'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_9' class='none'>
+    <td class='failCase'><div class='testcase'>test_add_9</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_9'>失败</button>
+    <div id='div_ft1_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_9'>失败</button>
+    <div id='div_ft1_9' class="collapse in" align="left">
+    <pre>
+    
+ft1_9: Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_add_loan.py", line 58, in test_add
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_add_loan.py", line 52, in test_add
+    self.assertEqual(case.expected, resp.text)
+AssertionError: '{"status":0,"code":"20109","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}' != '{"status":1,"code":"10001","data":null,"msg":"加标成功"}'
+- {"status":0,"code":"20109","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}
++ {"status":1,"code":"10001","data":null,"msg":"加标成功"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_bidloan.AddTest</td>
+    <td class="text-center">16</td>
+    <td class="text-center">13</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',16)" class="detail" id='c2'>详细</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>通过</button>
+    <div id='div_pt2_1' class="collapse in" align="left">
+    <pre>
+    
+pt2_1: 执行第1条用例：
+                 title:管理员成功登陆
+                 请求参数：{"mobilephone": "18516232886", "pwd": "123456"}
+                 请求方法：post
+                 请求地址：/member/login
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_2'>通过</button>
+    <div id='div_pt2_2' class="collapse in" align="left">
+    <pre>
+    
+pt2_2: 执行第2条用例：
+                 title:管理员成功添加项目
+                 请求参数：{"memberId":"1006","title":"白庆买房记","amount":"2000","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                 请求方法：post
+                 请求地址：/loan/add
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"加标成功"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"加标成功"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '加标成功'}
+验证失败，错误：'1006' != 1006，数据库没有对应的数据
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_3'>通过</button>
+    <div id='div_pt2_3' class="collapse in" align="left">
+    <pre>
+    
+pt2_3: 执行第3条用例：
+                 title:管理员修改状态为竞标中
+                 请求参数：{"id":"4564","status":"4"}
+                 请求方法：get
+                 请求地址：/loan/audit
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：竞标开始，当前标为竞标中状态"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：竞标开始，当前标为竞标中状态"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '更新状态成功：竞标开始，当前标为竞标中状态'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_4'>通过</button>
+    <div id='div_pt2_4' class="collapse in" align="left">
+    <pre>
+    
+pt2_4: 执行第4条用例：
+                 title:用户成功登陆
+                 请求参数：{"mobilephone": "15703033005", "pwd": "123456"}
+                 请求方法：post
+                 请求地址：/member/login
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '登录成功'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_05</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_5'>通过</button>
+    <div id='div_pt2_5' class="collapse in" align="left">
+    <pre>
+    
+pt2_5: 执行第5条用例：
+                 title:用户成功竞标
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"1000"}
+                 请求方法：get
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"竞标成功"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"竞标成功"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '竞标成功'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_06</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_6'>通过</button>
+    <div id='div_pt2_6' class="collapse in" align="left">
+    <pre>
+    
+pt2_6: 执行第6条用例：
+                 title:meberid为空
+                 请求参数：{"memberId":"","password":"123456","loanId":"894","amount":"1000"}
+                 请求方法：get
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11003","data":null,"msg":"参数错误:所有参数都不能为空"}
+                 actual:{"status":0,"code":"11003","data":null,"msg":"参数错误:所有参数都不能为空"}
+                 
+json: {'status': 0, 'code': '11003', 'data': None, 'msg': '参数错误:所有参数都不能为空'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_07</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_7'>通过</button>
+    <div id='div_pt2_7' class="collapse in" align="left">
+    <pre>
+    
+pt2_7: 执行第7条用例：
+                 title:meberid为负数
+                 请求参数：{"memberId":"-1","password":"123456","loanId":"894","amount":"1000"}
+                 请求方法：get
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11004","data":null,"msg":"参数错误，memberId必须是大于0的正整数"}
+                 actual:{"status":0,"code":"11004","data":null,"msg":"参数错误，memberId必须是大于0的正整数"}
+                 
+json: {'status': 0, 'code': '11004', 'data': None, 'msg': '参数错误，memberId必须是大于0的正整数'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_08</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_8'>通过</button>
+    <div id='div_pt2_8' class="collapse in" align="left">
+    <pre>
+    
+pt2_8: 执行第8条用例：
+                 title:密码小于6位
+                 请求参数：{"memberId":"1488","password":"12345","loanId":"894","amount":"1000"}
+                 请求方法：get
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11006","data":null,"msg":"参数错误，password长度必须大于6位且小于18位"}
+                 actual:{"status":0,"code":"11006","data":null,"msg":"参数错误，password长度必须大于6位且小于18位"}
+                 
+json: {'status': 0, 'code': '11006', 'data': None, 'msg': '参数错误，password长度必须大于6位且小于18位'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_09</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_9'>通过</button>
+    <div id='div_pt2_9' class="collapse in" align="left">
+    <pre>
+    
+pt2_9: 执行第9条用例：
+                 title:用户不存在
+                 请求参数：{"memberId":"10000454","password":"123456","loanId":"894","amount":"1000"}
+                 请求方法：get
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11008","data":null,"msg":"不存在该用户"}
+                 actual:{"status":0,"code":"11008","data":null,"msg":"不存在该用户"}
+                 
+json: {'status': 0, 'code': '11008', 'data': None, 'msg': '不存在该用户'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_10</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_10'>通过</button>
+    <div id='div_pt2_10' class="collapse in" align="left">
+    <pre>
+    
+pt2_10: 执行第10条用例：
+                 title:不存在的标的
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"55454","amount":"1000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11009","data":null,"msg":"不存在该标的"}
+                 actual:{"status":0,"code":"11009","data":null,"msg":"不存在该标的"}
+                 
+json: {'status': 0, 'code': '11009', 'data': None, 'msg': '不存在该标的'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_11</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_11'>通过</button>
+    <div id='div_pt2_11' class="collapse in" align="left">
+    <pre>
+    
+pt2_11: 执行第11条用例：
+                 title:修改状态为审核中
+                 请求参数：{"id":"4564","status":"1"}
+                 请求方法：get
+                 请求地址：/loan/audit
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：审核通过，当前标为审核中状态"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：审核通过，当前标为审核中状态"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '更新状态成功：审核通过，当前标为审核中状态'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_12</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_12'>通过</button>
+    <div id='div_pt2_12' class="collapse in" align="left">
+    <pre>
+    
+pt2_12: 执行第12条用例：
+                 title:不在竞标中
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"1000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11010","data":null,"msg":"该标不在竞标中状态，无法完成投标"}
+                 actual:{"status":0,"code":"11010","data":null,"msg":"该标不在竞标中状态，无法完成投标"}
+                 
+json: {'status': 0, 'code': '11010', 'data': None, 'msg': '该标不在竞标中状态，无法完成投标'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt2_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_bidloan_13</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_13'>通过</button>
+    <div id='div_pt2_13' class="collapse in" align="left">
+    <pre>
+    
+pt2_13: 执行第13条用例：
+                 title:修改状态为竞标中
+                 请求参数：{"id":"4564","status":"4"}
+                 请求方法：get
+                 请求地址：/loan/audit
+
+                 expected:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：竞标开始，当前标为竞标中状态"}
+                 actual:{"status":1,"code":"10001","data":null,"msg":"更新状态成功：竞标开始，当前标为竞标中状态"}
+                 
+json: {'status': 1, 'code': '10001', 'data': None, 'msg': '更新状态成功：竞标开始，当前标为竞标中状态'}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_14' class='none'>
+    <td class='failCase'><div class='testcase'>test_bidloan_14</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_14'>失败</button>
+    <div id='div_ft2_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_14'>失败</button>
+    <div id='div_ft2_14' class="collapse in" align="left">
+    <pre>
+    
+ft2_14: 执行第14条用例：
+                 title:满标
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"10000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11011","data":null,"msg":"该标已经满标,无法进行投资"}
+                 actual:{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+                 
+json: {'status': 0, 'code': '11012', 'data': None, 'msg': '该标可投金额不足，可投金额：1000.0'}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 62, in test_bidloan
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 45, in test_bidloan
+    self.assertEqual(case.expected, resp.text)
+AssertionError: '{"status":0,"code":"11011","data":null,"msg":"该标已经满标,无法进行投资"}' != '{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}'
+- {"status":0,"code":"11011","data":null,"msg":"该标已经满标,无法进行投资"}
+?                         ^                       ^^^^^^^^^ ^
++ {"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+?                         ^                       ^ ^^^^^^^^^^^^^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_bidloan_15</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_15'>失败</button>
+    <div id='div_ft2_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_15'>失败</button>
+    <div id='div_ft2_15' class="collapse in" align="left">
+    <pre>
+    
+ft2_15: 执行第15条用例：
+                 title:超出竞标金额
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"10000000000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：100000.0"}
+                 actual:{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+                 
+json: {'status': 0, 'code': '11012', 'data': None, 'msg': '该标可投金额不足，可投金额：1000.0'}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 62, in test_bidloan
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 45, in test_bidloan
+    self.assertEqual(case.expected, resp.text)
+AssertionError: '{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：100000.0"}' != '{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}'
+- {"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：100000.0"}
+?                                                                 --
++ {"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft2_16' class='none'>
+    <td class='failCase'><div class='testcase'>test_bidloan_16</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft2_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft2_16'>失败</button>
+    <div id='div_ft2_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft2_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft2_16'>失败</button>
+    <div id='div_ft2_16' class="collapse in" align="left">
+    <pre>
+    
+ft2_16: 执行第16条用例：
+                 title:输入非法类型的数据
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"10000000000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11013","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}
+                 actual:{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+                 
+json: {'status': 0, 'code': '11012', 'data': None, 'msg': '该标可投金额不足，可投金额：1000.0'}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 62, in test_bidloan
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 45, in test_bidloan
+    self.assertEqual(case.expected, resp.text)
+AssertionError: '{"status":0,"code":"11013","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}' != '{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}'
+- {"status":0,"code":"11013","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}
++ {"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>unittest.suite._ErrorHolder</td>
+    <td class="text-center">3</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">3</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',3)" class="detail" id='c3'>详细</a></td>
+</tr>
+
+<tr id='ft3_1' class='none'>
+    <td class='errorCase'><div class='testcase'>AddTest)</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_1'>错误</button>
+    <div id='div_ft3_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_1'>错误</button>
+    <div id='div_ft3_1' class="collapse in" align="left">
+    <pre>
+    
+ft3_1: 执行第16条用例：
+                 title:输入非法类型的数据
+                 请求参数：{"memberId":"1488","password":"123456","loanId":"4564","amount":"10000000000"}
+                 请求方法：post
+                 请求地址：/member/bidLoan
+
+                 expected:{"status":0,"code":"11013","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}
+                 actual:{"status":0,"code":"11012","data":null,"msg":"该标可投金额不足，可投金额：1000.0"}
+                 
+json: {'status': 0, 'code': '11012', 'data': None, 'msg': '该标可投金额不足，可投金额：1000.0'}
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_bidloan.py", line 68, in tearDownClass
+    cls.mysql.close()  # 关闭数据库连接
+AttributeError: 'Mysql' object has no attribute 'close'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_2' class='none'>
+    <td class='errorCase'><div class='testcase'>TestAdd)</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_2'>错误</button>
+    <div id='div_ft3_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_2'>错误</button>
+    <div id='div_ft3_2' class="collapse in" align="left">
+    <pre>
+    
+ft3_2: 执行第18条用例：
+                                 title:充值非数字
+                                 请求参数：{"mobilephone":"15703033005","amount":"五百万"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10009
+                                 actual:{"status":0,"code":"20118","data":null,"msg":"请输入数字"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 70, in tearDownClass
+    cls.mysql.close()         # 关闭数据库连接
+AttributeError: 'Mysql' object has no attribute 'close'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft3_3' class='none'>
+    <td class='errorCase'><div class='testcase'>TestAdd)</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft3_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft3_3'>错误</button>
+    <div id='div_ft3_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft3_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft3_3'>错误</button>
+    <div id='div_ft3_3' class="collapse in" align="left">
+    <pre>
+    
+ft3_3: Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_register.py", line 65, in tearDownClass
+    cls.mysql.close()  # 关闭数据库连接
+AttributeError: type object 'TestAdd' has no attribute 'mysql'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_login.TestAdd: 自动化测试框架，完成接口自动化</td>
+    <td class="text-center">6</td>
+    <td class="text-center">5</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',6)" class="detail" id='c4'>详细</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Login_1</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Login_2</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Login_3</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Login_4</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='pt4_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Login_5</div></td>
+    <td colspan='5' align='center'><span class="label label-success success">通过</span></td>
+</tr>
+
+<tr id='ft4_6' class='none'>
+    <td class='failCase'><div class='testcase'>test_Login_6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft4_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft4_6'>失败</button>
+    <div id='div_ft4_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft4_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft4_6'>失败</button>
+    <div id='div_ft4_6' class="collapse in" align="left">
+    <pre>
+    
+ft4_6: Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_login.py", line 35, in test_Login
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_login.py", line 31, in test_Login
+    self.assertEqual(case.expected, actual)
+AssertionError: '{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}' != '{"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}'
+- {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+?                        ^^                     ^^^ ^^^^^
++ {"status":0,"code":"20111","data":null,"msg":"用户名或密码错误"}
+?                        ^^                     ^^^^^ ^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_recharge.TestAdd: 自动化测试框架，完成接口自动化</td>
+    <td class="text-center">18</td>
+    <td class="text-center">10</td>
+    <td class="text-center">8</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',18)" class="detail" id='c5'>详细</a></td>
+</tr>
+
+<tr id='pt5_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_1'>通过</button>
+    <div id='div_pt5_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_1'>通过</button>
+    <div id='div_pt5_1' class="collapse in" align="left">
+    <pre>
+    
+pt5_1: 执行第1条用例：
+                                 title:成功登陆
+                                 请求参数：{"mobilephone": "15703033005", "pwd": "123456"}
+                                 请求方法：post
+                                 请求地址：/member/login
+
+                                 expected:10001
+                                 actual:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_2'>通过</button>
+    <div id='div_pt5_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_2'>通过</button>
+    <div id='div_pt5_2' class="collapse in" align="left">
+    <pre>
+    
+pt5_2: 充值前的余额: 4027001.68
+执行第2条用例：
+                                 title:充值成功
+                                 请求参数：{"mobilephone":"15703033005","amount":"1000"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10001
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"4028001.68","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+充值之后的余额: 4028001.68
+1000
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_3'>通过</button>
+    <div id='div_pt5_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_3'>通过</button>
+    <div id='div_pt5_3' class="collapse in" align="left">
+    <pre>
+    
+pt5_3: 执行第3条用例：
+                                 title:空手机号充值
+                                 请求参数：{"mobilephone":"","amount":"1000"}
+                                 请求方法：post
+                                 请求地址：/member/recharge
+
+                                 expected:20103
+                                 actual:{"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_4'>通过</button>
+    <div id='div_pt5_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_4'>通过</button>
+    <div id='div_pt5_4' class="collapse in" align="left">
+    <pre>
+    
+pt5_4: 执行第4条用例：
+                                 title:不存在的手机号
+                                 请求参数：{"mobilephone":"15803033005","amount":"1000"}
+                                 请求方法：post
+                                 请求地址：/member/recharge
+
+                                 expected:20104
+                                 actual:{"status":0,"code":"20104","data":null,"msg":"此手机号对应的会员不存在"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_05</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_5'>通过</button>
+    <div id='div_pt5_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_5'>通过</button>
+    <div id='div_pt5_5' class="collapse in" align="left">
+    <pre>
+    
+pt5_5: 执行第5条用例：
+                                 title:超过11位的手机号
+                                 请求参数：{"mobilephone":"158030330050","amount":"1000"}
+                                 请求方法：post
+                                 请求地址：/member/recharge
+
+                                 expected:20109
+                                 actual:{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_06</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_6'>通过</button>
+    <div id='div_pt5_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_6'>通过</button>
+    <div id='div_pt5_6' class="collapse in" align="left">
+    <pre>
+    
+pt5_6: 执行第6条用例：
+                                 title:少于11位的手机号
+                                 请求参数：{"mobilephone":"158030330","amount":"1000"}
+                                 请求方法：post
+                                 请求地址：/member/recharge
+
+                                 expected:20109
+                                 actual:{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_07</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_7'>通过</button>
+    <div id='div_pt5_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_7'>通过</button>
+    <div id='div_pt5_7' class="collapse in" align="left">
+    <pre>
+    
+pt5_7: 执行第7条用例：
+                                 title:不输入金额
+                                 请求参数：{"mobilephone":"15703033005","amount":""}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:20115
+                                 actual:{"status":0,"code":"20115","data":null,"msg":"请输入金额"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_08</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_8'>通过</button>
+    <div id='div_pt5_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_8'>通过</button>
+    <div id='div_pt5_8' class="collapse in" align="left">
+    <pre>
+    
+pt5_8: 执行第8条用例：
+                                 title:充值金额为0
+                                 请求参数：{"mobilephone":"15703033005","amount":"0"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10001
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"4028001.68","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_09</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_9'>通过</button>
+    <div id='div_pt5_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_9'>通过</button>
+    <div id='div_pt5_9' class="collapse in" align="left">
+    <pre>
+    
+pt5_9: 执行第9条用例：
+                                 title:充值金额为1
+                                 请求参数：{"mobilephone":"15703033005","amount":"1"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10001
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"4028002.68","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt5_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_recharge_10</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_10'>通过</button>
+    <div id='div_pt5_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_10'>通过</button>
+    <div id='div_pt5_10' class="collapse in" align="left">
+    <pre>
+    
+pt5_10: 执行第10条用例：
+                                 title:充值金额为499999
+                                 请求参数：{"mobilephone":"15703033005","amount":"499999"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10001
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"4528001.68","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_11' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_11</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_11'>失败</button>
+    <div id='div_ft5_11' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_11'>失败</button>
+    <div id='div_ft5_11' class="collapse in" align="left">
+    <pre>
+    
+ft5_11: 执行第11条用例：
+                                 title:充值金额为500000
+                                 请求参数：{"mobilephone":"15703033005","amount":"500000"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10002
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"5028001.68","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10002' != '10001'
+- 10002
+?     ^
++ 10001
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_12' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_12</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_12'>失败</button>
+    <div id='div_ft5_12' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_12'>失败</button>
+    <div id='div_ft5_12' class="collapse in" align="left">
+    <pre>
+    
+ft5_12: 执行第12条用例：
+                                 title:充值金额为-1
+                                 请求参数：{"mobilephone":"15703033005","amount":"-1"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10003
+                                 actual:{"status":0,"code":"20117","data":null,"msg":"请输入范围在0到50万之间的正数金额"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10003' != '20117'
+- 10003
++ 20117
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_13' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_13</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_13'>失败</button>
+    <div id='div_ft5_13' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_13'>失败</button>
+    <div id='div_ft5_13' class="collapse in" align="left">
+    <pre>
+    
+ft5_13: 执行第13条用例：
+                                 title:充值金额为500001
+                                 请求参数：{"mobilephone":"15703033005","amount":"500001"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10004
+                                 actual:{"status":0,"code":"20117","data":null,"msg":"请输入范围在0到50万之间的正数金额"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10004' != '20117'
+- 10004
++ 20117
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_14' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_14</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_14'>失败</button>
+    <div id='div_ft5_14' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_14'>失败</button>
+    <div id='div_ft5_14' class="collapse in" align="left">
+    <pre>
+    
+ft5_14: 执行第14条用例：
+                                 title:充值超过小数点两位的金额
+                                 请求参数：{"mobilephone":"15703033005","amount":"5000.223"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10005
+                                 actual:{"status":0,"code":"20116","data":null,"msg":"输入金额的金额小数不能超过两位"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10005' != '20116'
+- 10005
++ 20116
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_15' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_15</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_15'>失败</button>
+    <div id='div_ft5_15' class="collapse in" align="left">
+    <pre>
+    
+ft5_15: 执行第15条用例：
+                                 title:充值刚好小数点两位金额
+                                 请求参数：{"mobilephone":"15703033005","amount":"5000.22"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10006
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"5033001.90","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10006' != '10001'
+- 10006
+?     ^
++ 10001
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_16' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_16</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_16'>失败</button>
+    <div id='div_ft5_16' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_16'>失败</button>
+    <div id='div_ft5_16' class="collapse in" align="left">
+    <pre>
+    
+ft5_16: 执行第16条用例：
+                                 title:充值小数点1位的金额
+                                 请求参数：{"mobilephone":"15703033005","amount":"5000.2"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10007
+                                 actual:{"status":1,"code":"10001","data":{"id":1488,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15703033005","leaveamount":"5038002.10","type":"1","regtime":"2019-04-24 22:26:41.0"},"msg":"充值成功"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10007' != '10001'
+- 10007
+?     ^
++ 10001
+?     ^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_17' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_17</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_17'>失败</button>
+    <div id='div_ft5_17' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_17'>失败</button>
+    <div id='div_ft5_17' class="collapse in" align="left">
+    <pre>
+    
+ft5_17: 执行第17条用例：
+                                 title:充值-小数点2位的金额
+                                 请求参数：{"mobilephone":"15703033005","amount":"5000.-2"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10008
+                                 actual:{"status":0,"code":"20118","data":null,"msg":"请输入数字"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10008' != '20118'
+- 10008
++ 20118
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft5_18' class='none'>
+    <td class='failCase'><div class='testcase'>test_recharge_18</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft5_18'>失败</button>
+    <div id='div_ft5_18' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft5_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft5_18'>失败</button>
+    <div id='div_ft5_18' class="collapse in" align="left">
+    <pre>
+    
+ft5_18: 执行第18条用例：
+                                 title:充值非数字
+                                 请求参数：{"mobilephone":"15703033005","amount":"五百万"}
+                                 请求方法：get
+                                 请求地址：/member/recharge
+
+                                 expected:10009
+                                 actual:{"status":0,"code":"20118","data":null,"msg":"请输入数字"}
+                                 
+Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 63, in test_recharge
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_recharge.py", line 59, in test_recharge
+    self.assertEqual(str(case.expected), actual_code)
+AssertionError: '10009' != '20118'
+- 10009
++ 20118
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>test_register.TestAdd: 自动化测试框架，完成接口自动化</td>
+    <td class="text-center">10</td>
+    <td class="text-center">8</td>
+    <td class="text-center">2</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',10)" class="detail" id='c6'>详细</a></td>
+</tr>
+
+<tr id='ft6_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_01</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_1'>失败</button>
+    <div id='div_ft6_1' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_1'>失败</button>
+    <div id='div_ft6_1' class="collapse in" align="left">
+    <pre>
+    
+ft6_1: Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_register.py", line 59, in test_register
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_register.py", line 45, in test_register
+    self.assertEqual(case.expected, actual)
+AssertionError: '{"status":1,"code":"10001","data":null,"msg":"注册成功"}' != '{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}'
+- {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+?           ^           ^^^                     ^^^^
++ {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+?           ^         ++  ^                     ^^^^^^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_02</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_2'>通过</button>
+    <div id='div_pt6_2' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_2'>通过</button>
+    <div id='div_pt6_2' class="collapse in" align="left">
+    <pre>
+    
+pt6_2: {"status":0,"code":"20110","data":null,"msg":"手机号码已被注册"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_03</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_3'>通过</button>
+    <div id='div_pt6_3' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_3'>通过</button>
+    <div id='div_pt6_3' class="collapse in" align="left">
+    <pre>
+    
+pt6_3: {"status":0,"code":"20103","data":null,"msg":"手机号不能为空"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_04</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_4'>通过</button>
+    <div id='div_pt6_4' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_4'>通过</button>
+    <div id='div_pt6_4' class="collapse in" align="left">
+    <pre>
+    
+pt6_4: {"status":0,"code":"20103","data":null,"msg":"密码不能为空"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_05</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_5'>通过</button>
+    <div id='div_pt6_5' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_5'>通过</button>
+    <div id='div_pt6_5' class="collapse in" align="left">
+    <pre>
+    
+pt6_5: {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_06</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_6'>通过</button>
+    <div id='div_pt6_6' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_6'>通过</button>
+    <div id='div_pt6_6' class="collapse in" align="left">
+    <pre>
+    
+pt6_6: {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_07</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_7'>通过</button>
+    <div id='div_pt6_7' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_7'>通过</button>
+    <div id='div_pt6_7' class="collapse in" align="left">
+    <pre>
+    
+pt6_7: {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_08</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_8'>通过</button>
+    <div id='div_pt6_8' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_8'>通过</button>
+    <div id='div_pt6_8' class="collapse in" align="left">
+    <pre>
+    
+pt6_8: {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt6_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_register_09</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_9'>通过</button>
+    <div id='div_pt6_9' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_9'>通过</button>
+    <div id='div_pt6_9' class="collapse in" align="left">
+    <pre>
+    
+pt6_9: {"status":0,"code":"20108","data":null,"msg":"密码长度必须为6~18"}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft6_10' class='none'>
+    <td class='failCase'><div class='testcase'>test_register_10</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft6_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft6_10'>失败</button>
+    <div id='div_ft6_10' class="collapse">  -->
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft6_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft6_10'>失败</button>
+    <div id='div_ft6_10' class="collapse in" align="left">
+    <pre>
+    
+ft6_10: Traceback (most recent call last):
+  File "C:\Users\Administrator\PycharmProjects\python_15\venv\lib\site-packages\ddt.py", line 145, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_register.py", line 59, in test_register
+    raise e
+  File "C:\Users\Administrator\PycharmProjects\api\week_10_API_learn\testcases\test_register.py", line 45, in test_register
+    self.assertEqual(case.expected, actual)
+AssertionError: '{"status":1,"code":"10001","data":null,"msg":"注册成功"}' != '{"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}'
+- {"status":1,"code":"10001","data":null,"msg":"注册成功"}
+?           ^           ^^^                     ^^^^
++ {"status":0,"code":"20109","data":null,"msg":"手机号码格式不正确"}
+?           ^         ++  ^                     ^^^^^^^^^
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>62</td>
+    <td>44</td>
+    <td>15</td>
+    <td>3</td>
+    <td>通过率：70.97%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+</body>
+</html>

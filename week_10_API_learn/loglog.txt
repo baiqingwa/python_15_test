@@ -1,0 +1,81 @@
+2019-04-26 22:37:47,242-log.py-CRITICAL-日志信息:执行第1条用例：
+                         title:成功登陆
+                         请求参数：{"mobilephone": "15703033005", "pwd": "123456"}
+                         请求方法：post
+                         请求地址：/member/login
+
+                         expected:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                         actual:{"status":1,"code":"10001","data":null,"msg":"登录成功"}
+                         
+2019-04-26 22:37:47,501-log.py-CRITICAL-日志信息:执行第2条用例：
+                         title:成功添加项目
+                         请求参数：{"memberId":"1488","title":"白庆买房记","amount":"2000","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":1,"code":"10001","data":null,"msg":"加标成功"}
+                         actual:{"status":1,"code":"10001","data":null,"msg":"加标成功"}
+                         
+2019-04-26 22:37:47,683-log.py-CRITICAL-日志信息:执行第3条用例：
+                         title:memberid为空
+                         请求参数：{"memberId":"","title":"白庆买房记","amount":"2000","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20103","data":null,"msg":"所有参数不能为空"}
+                         actual:{"status":0,"code":"20103","data":null,"msg":"所有参数不能为空"}
+                         
+2019-04-26 22:37:47,843-log.py-CRITICAL-日志信息:执行第4条用例：
+                         title:memberid为负数
+                         请求参数：{"memberId":"-5","title":"白庆买房记","amount":"2000","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20104","data":null,"msg":"参数错误：用户ID memberId必须是正整数"}
+                         actual:{"status":0,"code":"20104","data":null,"msg":"参数错误：用户ID memberId必须是正整数"}
+                         
+2019-04-26 22:37:48,068-log.py-CRITICAL-日志信息:执行第5条用例：
+                         title:不存在的会员
+                         请求参数：{"memberId":"101052","title":"白庆买房记","amount":"2000","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20105","data":null,"msg":"不存在该会员"}
+                         actual:{"status":0,"code":"20105","data":null,"msg":"不存在该会员"}
+                         
+2019-04-26 22:37:48,276-log.py-CRITICAL-日志信息:执行第6条用例：
+                         title:借款金额小于1000
+                         请求参数：{"memberId":"1488","title":"白庆买房记","amount":"999.9","loanRate":"24.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20106","data":null,"msg":"参数错误：借款金额amount必须为大于1000并能被100整除的正整数"}
+                         actual:{"status":0,"code":"20106","data":null,"msg":"参数错误：借款金额amount必须为大于1000并能被100整除的正整数"}
+                         
+2019-04-26 22:37:48,546-log.py-CRITICAL-日志信息:执行第7条用例：
+                         title:借款利率大于24
+                         请求参数：{"memberId":"1488","title":"白庆买房记","amount":"1000","loanRate":"26.0","loanTerm":"6","loanDateType":"0","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20107","data":null,"msg":"参数错误：借款利率loanRate值必须大于0小于或等于24"}
+                         actual:{"status":0,"code":"20107","data":null,"msg":"参数错误：借款利率loanRate值必须大于0小于或等于24"}
+                         
+2019-04-26 22:37:48,897-log.py-CRITICAL-日志信息:执行第8条用例：
+                         title:借款日期类型非0.2.4
+                         请求参数：{"memberId":"1488","title":"白庆买房记","amount":"1000","loanRate":"23.0","loanTerm":"6","loanDateType":"8","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：post
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20108","data":null,"msg":"参数错误：借款日期类型loanDateType只能为0,2,4"}
+                         actual:{"status":0,"code":"20108","data":null,"msg":"参数错误：借款日期类型loanDateType只能为0,2,4"}
+                         
+2019-04-26 22:37:49,232-log.py-CRITICAL-日志信息:执行第9条用例：
+                         title:输出非法的数据类型
+                         请求参数：{"memberId":"1488","title":"白庆买房记","amount":"1000","loanRate":"23.0","loanTerm":"6","loanDateType":"2","repaymemtWay":"4","biddingDays":"8"}
+                         请求方法：get
+                         请求地址：/loan/add
+
+                         expected:{"status":0,"code":"20109","data":null,"msg":"请根据数值参数的类型对应输入合法的数字"}
+                         actual:{"status":1,"code":"10001","data":null,"msg":"加标成功"}
+                         
